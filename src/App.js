@@ -1,23 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import EmployeeEditComponent from './components/employee/employee-edit.component';
+import EmployeeListViewComponent from './components/employee/employee-list-view.component';
+import EmployeeViewComponent from './components/employee/employee-view.component';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        HEADER
       </header>
+      <div className="App-content">
+        <EmployeeListViewComponent/>
+        <hr/>
+        <EmployeeViewComponent/>
+        <EmployeeEditComponent/>
+      </div>
     </div>
   );
 }
