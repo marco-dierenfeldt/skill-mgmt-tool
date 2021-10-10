@@ -38,8 +38,8 @@ class EmployeeEditComponent extends Component {
 
     handleSubmit = (event) => {
 
-        console.log('event: ' + event);
-
+        //console.log('event: ' + event);
+        EmployeeService.addEmployee(this.state.name,this.state.surname,this.state.unit,this.state.role);
         event.preventDefault();
     }
 

@@ -15,6 +15,15 @@ class EmployeeService {
         return this.employeeList[id];
     }
 
+    addEmployee(name, surname, unit, role){
+        this.employeeList.push({
+            id:this.employeeList.length+1,
+            name,
+            surname,
+            unit,
+            role
+        })
+    }
 }
 
 export default new EmployeeService();
