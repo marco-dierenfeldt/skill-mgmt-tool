@@ -22,7 +22,7 @@ class EmployeeService {
             surname,
             unit,
             role
-        })
+        });
     }
 }
 
