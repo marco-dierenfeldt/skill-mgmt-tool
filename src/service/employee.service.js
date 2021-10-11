@@ -15,7 +15,16 @@ class EmployeeService {
         var result = this.employeeList.find(employee => {
             return employee.id === id;
         });
-        return this.employeeList[id];
+        return result;
+    }
+
+    updateSEmployee(id, name, surname, unit, role) {
+        var objIndex = this.employeeList.findIndex((employee => employee.id === id));
+
+        this.employeeList[objIndex].name = name;
+        this.employeeList[objIndex].surname = surname;
+        this.employeeList[objIndex].unit = unit;
+        this.employeeList[objIndex].role = role;
     }
 
     addEmployee(name, surname, unit, role){

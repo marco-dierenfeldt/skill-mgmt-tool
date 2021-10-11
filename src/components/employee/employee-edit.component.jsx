@@ -5,42 +5,51 @@ class EmployeeEditComponent extends Component {
 
     constructor(props) {
         super(props);
-        this.props = props;
+
         this.state = { id: 1, name: "Rurik", surname: "Eisenfaust", unit: "TELCO-Line 9", role: "SW Architect" };
     }
 
     componentDidMount = () => {
         if (this.props.id) {
-            let tmpEmployee = EmployeeService.getEmployee(this.props.id);
-            this.setState({ tmpEmployee });
+            this.editMode = true;
+            let tmpEmployee = EmployeeService.getEmployee(parseInt(this.props.id));
+            this.setState(tmpEmployee);
+        } else {
+            this.editMode = false;
         }
     }
 
     setName = (name) => {
-        //console.log("name: " + name);
         this.setState({ name })
     }
 
     setSurname = (surname) => {
-        //console.log("surname: " + surname);
         this.setState({ surname })
     }
 
     setUnit = (unit) => {
-        //console.log("unit: " + unit);
         this.setState({ unit })
     }
 
     setRole = (role) => {
-        //console.log("role: " + role);
         this.setState({ role })
     }
 
     handleSubmit = (event) => {
-
-        //console.log('event: ' + event);
-        EmployeeService.addEmployee(this.state.name,this.state.surname,this.state.unit,this.state.role);
+        if (this.editMode) { 
+            EmployeeService.updateSEmployee(this.state.id, this.state.name, this.state.name, this.state.unit, this.state.role);
+        } else {
+            EmployeeService.addEmployee(this.state.name, this.state.surname, this.state.unit, this.state.role);
+        }
         event.preventDefault();
+    }
+
+    btnTxt = () => {
+        if (this.editMode) {
+            return 'Update';
+         } else {
+             return 'Submit';
+         }
     }
 
     render = () => {
@@ -98,7 +107,7 @@ class EmployeeEditComponent extends Component {
                     </tr>
 
                     <tr>
-                        <td></td><td align="right"><button>Submit</button></td>
+                        <td></td><td align="right"><button>{this.btnTxt()}</button></td>
                     </tr>
                 </table>
             </form>

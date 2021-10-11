@@ -5,16 +5,15 @@ class SkillEditComponent extends Component {
 
     constructor(props) {
         super(props);
-        //this.props = props;
+        
         this.state = { id: 1, name: "blah", description: "blubb" };
     }
 
     componentDidMount = () => {
-        console.log("componentDidMount id: " + this.props.id);
         if (this.props.id) {
             this.editMode = true;
             let tmpSkill = SkillService.getSkill(parseInt(this.props.id));
-            console.log("tmpSkill: " + tmpSkill);
+            
             this.setState(tmpSkill);
         } else {
             this.editmode = false;

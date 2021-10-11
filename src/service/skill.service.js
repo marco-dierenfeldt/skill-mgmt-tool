@@ -14,25 +14,16 @@ class SkillService {
 
     getSkill(id) {
         var result = this.skillList.find(skill => {
-            //console.log(skill);
             return skill.id === id
         })
-        //console.log("SkillService result: " + result);
         return result;
     }
 
     updateSkill(id, name, description) {
         var objIndex = this.skillList.findIndex((obj => obj.id === id));
 
-        //Log object to Console.
-        console.log("Before update: ", this.skillList[objIndex])
-
-        //Update object's name property.
         this.skillList[objIndex].name = name;
         this.skillList[objIndex].description = description;
-
-        //Log object to console again.
-        console.log("After update: ", this.skillList[objIndex])
     }
 
     addSkill(name, description) {
