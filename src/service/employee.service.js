@@ -12,6 +12,9 @@ class EmployeeService {
     }
 
     getEmployee(id) {
+        var result = this.employeeList.find(employee => {
+            return employee.id === id;
+        });
         return this.employeeList[id];
     }
 

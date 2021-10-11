@@ -13,7 +13,7 @@ function App() {
         <SkillListViewComponent/>
         <hr/>
         <SkillViewComponent/>
-        <SkillEditComponent/>
+        <SkillEditComponent id="1"/>
       </div>
     </div>
   );

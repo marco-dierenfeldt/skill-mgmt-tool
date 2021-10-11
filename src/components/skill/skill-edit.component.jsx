@@ -5,15 +5,17 @@ class SkillEditComponent extends Component {
 
     constructor(props) {
         super(props);
-        this.props = props;
+        //this.props = props;
         this.state = { id: 1, name: "blah", description: "blubb" };
     }
 
     componentDidMount = () => {
+        console.log("componentDidMount id: " + this.props.id);
         if (this.props.id) {
             this.editMode = true;
-            let tmpSkill = SkillService.getEmployee(this.props.id);
-            this.setState({ tmpSkill });
+            let tmpSkill = SkillService.getSkill(parseInt(this.props.id));
+            console.log("tmpSkill: " + tmpSkill);
+            this.setState(tmpSkill);
         } else {
             this.editmode = false;
         }
@@ -28,8 +30,20 @@ class SkillEditComponent extends Component {
     }
 
     handleSubmit = (event) => {
-        SkillService.addSkill(this.state.name, this.state.description);
+        if (this.editMode) {
+            SkillService.updateSkill(this.state.id, this.state.name, this.state.description);
+        } else {
+            SkillService.addSkill(this.state.name, this.state.description);
+        }
         event.preventDefault();
+    }
+
+    btnTxt = () => {
+        if (this.editMode) {
+            return 'Update';
+         } else {
+             return 'Submit';
+         }
     }
 
     render = () => {
@@ -51,7 +65,7 @@ class SkillEditComponent extends Component {
                     <tr>
                         <td>Beschreibung</td>
                         <td>
-                            <input
+                            <textarea
                                 name="description"
                                 type="text"
                                 value={this.state.description}
@@ -60,7 +74,7 @@ class SkillEditComponent extends Component {
                         </td>
                     </tr>
                     <tr>
-                        <td></td><td align="right"><button>Submit</button></td>
+                        <td></td><td align="right"><button>{this.btnTxt()}</button></td>
                     </tr>
                 </table>
             </form>
