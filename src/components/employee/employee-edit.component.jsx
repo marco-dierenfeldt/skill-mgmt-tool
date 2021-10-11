@@ -12,7 +12,7 @@ class EmployeeEditComponent extends Component {
     componentDidMount = () => {
         if (this.props.id) {
             let tmpEmployee = EmployeeService.getEmployee(this.props.id);
-            this.setState({ employee: tmpEmployee });
+            this.setState({ tmpEmployee });
         }
     }
 

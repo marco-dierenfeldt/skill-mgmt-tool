@@ -15,7 +15,7 @@ class EmployeeViewComponent extends Component {
     render = () => {
         return (
             <div>
-                <h2>EMPLOYEE VIEW</h2>
+                <h3>Employee View</h3>
                 <table>
                 <tr><td>Name:</td><td>{this.state.employee.name} {this.state.employee.surname}</td></tr>
                 <tr><td>Einheit:</td><td>{this.state.employee.unit}</td></tr>

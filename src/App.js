@@ -1,7 +1,7 @@
 import './App.css';
-import EmployeeEditComponent from './components/employee/employee-edit.component';
-import EmployeeListViewComponent from './components/employee/employee-list-view.component';
-import EmployeeViewComponent from './components/employee/employee-view.component';
+import SkillListViewComponent from './components/skill/skill-list-view.component';
+import SkillEditComponent from './components/skill/skill-edit.component';
+import SkillViewComponent from './components/skill/skill-view.component';
 
 function App() {
   return (
@@ -10,10 +10,10 @@ function App() {
         HEADER
       </header>
       <div className="App-content">
-        <EmployeeListViewComponent/>
+        <SkillListViewComponent/>
         <hr/>
-        <EmployeeViewComponent/>
-        <EmployeeEditComponent/>
+        <SkillViewComponent/>
+        <SkillEditComponent/>
       </div>
     </div>
   );
