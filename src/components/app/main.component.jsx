@@ -1,4 +1,6 @@
 import { Component } from "react";
+import SkillOverviewComponent from "../skill/skill-overview.component";
+import SkillEditComponent from "../skill/skill-edit.component";
 import AppStateEnum from "./app-state.enum";
 
 class MainComponent extends Component {
@@ -21,8 +23,12 @@ class MainComponent extends Component {
         this.setState({displayState: AppStateEnum.EMPLOYEE_OVERVIEW});
     }
 
-    gotoSkillEditor = () => {
-        this.setState({displayState: AppStateEnum.SKILL_EDIT});
+    gotoSkillEditor = (skillID) => {
+        if (skillID) {
+            this.setState({displayState: AppStateEnum.SKILL_EDIT, id: skillID})
+        } else {
+        this.setState({displayState: AppStateEnum.SKILL_NEW, id: null});
+        }
     }
     
     gotoEmployeeEditor = () => {
@@ -34,7 +40,11 @@ class MainComponent extends Component {
         if (this.state.displayState === AppStateEnum.EMPLOYEE_OVERVIEW) {
             content = <div>EMPLOYEE_OVERVIEW</div>
         } else if (this.state.displayState === AppStateEnum.SKILL_OVERVIEW) {
-            content = <div>SKILL_OVERVIEW</div>
+            content = <SkillOverviewComponent gotoSkillEdit={this.gotoSkillEditor}/>
+        } else if (this.state.displayState === AppStateEnum.SKILL_EDIT) {
+            content = <SkillEditComponent gotoSkillList={this.gotoSkillManagement} id={this.state.id}/>
+        } else if (this.state.displayState === AppStateEnum.SKILL_NEW) {
+            content = <SkillEditComponent gotoSkillList={this.gotoSkillManagement}/>
         } else {
             content = <div>APP_START</div>
         } 

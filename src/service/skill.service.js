@@ -33,6 +33,11 @@ class SkillService {
             description,
         });
     }
-}
+
+    deleteSkill(id) {
+        var objIndex = this.skillList.findIndex((obj => obj.id === id));
+        this.skillList.splice(objIndex,1)
+    }
+};
 
 export default new SkillService();

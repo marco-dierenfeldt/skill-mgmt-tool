@@ -5,16 +5,21 @@ class SkillEditComponent extends Component {
 
     constructor(props) {
         super(props);
-        
-        this.state = { id: 1, name: "blah", description: "blubb" };
+
+        this.state = {
+            gotoSkillList: props.gotoSkillList,
+            id: props.id,
+            name: "",
+            description: "Level 1:\nLevel 2:\nLevel 3:"
+        };
     }
 
     componentDidMount = () => {
         if (this.props.id) {
             this.editMode = true;
             let tmpSkill = SkillService.getSkill(parseInt(this.props.id));
-            
-            this.setState(tmpSkill);
+            console.log("SkillEditComponent.componentDidMount tmpSkill:" + tmpSkill)
+            this.setState({ id: tmpSkill.id, name: tmpSkill.name, description: tmpSkill.description });
         } else {
             this.editmode = false;
         }
@@ -34,15 +39,16 @@ class SkillEditComponent extends Component {
         } else {
             SkillService.addSkill(this.state.name, this.state.description);
         }
+        this.props.gotoSkillList();
         event.preventDefault();
     }
 
     btnTxt = () => {
         if (this.editMode) {
             return 'Update';
-         } else {
-             return 'Submit';
-         }
+        } else {
+            return 'Submit';
+        }
     }
 
     render = () => {
