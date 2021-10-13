@@ -8,16 +8,17 @@ class SkillEditComponent extends Component {
 
         this.state = {
             gotoSkillList: props.gotoSkillList,
-            id: props.id,
+            id: parseInt(props.id),
             name: "",
             description: "Level 1:\nLevel 2:\nLevel 3:"
         };
     }
 
     componentDidMount = () => {
-        if (this.props.id) {
+        if (this.props.id && typeof(this.props.id) == 'number') {
+            console.log("SkillEditComponent.componentDidMount("+this.props.id+")");
             this.editMode = true;
-            let tmpSkill = SkillService.getSkill(parseInt(this.props.id));
+            let tmpSkill = SkillService.getSkill(parseInt(this.staprops.id));
             console.log("SkillEditComponent.componentDidMount tmpSkill:" + tmpSkill)
             this.setState({ id: tmpSkill.id, name: tmpSkill.name, description: tmpSkill.description });
         } else {
