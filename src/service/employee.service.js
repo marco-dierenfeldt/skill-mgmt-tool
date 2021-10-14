@@ -36,6 +36,11 @@ class EmployeeService {
             role
         });
     }
+
+    deleteEmployee = (id) => {
+        var objIndex = this.employeeList.findIndex((employee => employee.id === id));
+        this.employeeList.splice(objIndex,1);
+    }
 }
 
 export default new EmployeeService();
