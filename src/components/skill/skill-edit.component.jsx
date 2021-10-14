@@ -16,10 +16,10 @@ class SkillEditComponent extends Component {
 
     componentDidMount = () => {
         if (this.props.id && typeof(this.props.id) == 'number') {
-            console.log("SkillEditComponent.componentDidMount("+this.props.id+")");
+            //console.log("SkillEditComponent.componentDidMount("+this.props.id+")");
             this.editMode = true;
             let tmpSkill = SkillService.getSkill(parseInt(this.props.id));
-            console.log("SkillEditComponent.componentDidMount tmpSkill:" + tmpSkill)
+            //console.log("SkillEditComponent.componentDidMount tmpSkill:" + tmpSkill)
             this.setState({ id: tmpSkill.id, name: tmpSkill.name, description: tmpSkill.description });
         } else {
             this.editmode = false;

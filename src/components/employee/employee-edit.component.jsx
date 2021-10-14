@@ -6,14 +6,20 @@ class EmployeeEditComponent extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { id: 1, name: "Rurik", surname: "Eisenfaust", unit: "TELCO-Line 9", role: "SW Architect" };
+        this.state = { 
+            gotoSkillList: props.gotoEmployeeList,
+            id: props.id,
+            name: "Rurik", 
+            surname: "Eisenfaust", 
+            unit: "TELCO-Line 9", 
+            role: "SW Architect" };
     }
 
     componentDidMount = () => {
-        if (this.props.id) {
+        if (this.props.id && typeof(this.props.id) == 'number') {
             this.editMode = true;
             let tmpEmployee = EmployeeService.getEmployee(parseInt(this.props.id));
-            this.setState(tmpEmployee);
+            this.setState({id: tmpEmployee.id, name: tmpEmployee.name, surname: tmpEmployee.surname, unit: tmpEmployee.unit, role: tmpEmployee.role});
         } else {
             this.editMode = false;
         }
@@ -41,6 +47,7 @@ class EmployeeEditComponent extends Component {
         } else {
             EmployeeService.addEmployee(this.state.name, this.state.surname, this.state.unit, this.state.role);
         }
+        this.props.gotoEmployeeList();
         event.preventDefault();
     }
 

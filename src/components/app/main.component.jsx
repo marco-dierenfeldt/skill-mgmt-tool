@@ -36,7 +36,7 @@ class MainComponent extends Component {
     gotoEmployeeEditor = (employeeID) => {
         console.log("MainComponent.gotoEmployeeEditor()")
         if (employeeID) {
-            this.setState({ displayState: AppStateEnum.EMPLOYEE_EDIT });
+            this.setState({ displayState: AppStateEnum.EMPLOYEE_EDIT, id: employeeID });
         } else {
             this.setState({ displayState: AppStateEnum.EMPLOYEE_NEW });
         }
@@ -53,9 +53,9 @@ class MainComponent extends Component {
         } else if (this.state.displayState === AppStateEnum.SKILL_NEW) {
             content = <SkillEditComponent gotoSkillList={this.gotoSkillManagement} />
         } else if (this.state.displayState === AppStateEnum.EMPLOYEE_EDIT) {
-            content = <EmployeeEditComponent />
+            content = <EmployeeEditComponent gotoEmployeeList={this.gotoEmployeeManagement} id={this.state.id} />
         } else if (this.state.displayState === AppStateEnum.EMPLOYEE_NEW) {
-            content = <EmployeeEditComponent />
+            content = <EmployeeEditComponent gotoEmployeeList={this.gotoEmployeeManagement} />
         } else {
             content = <div>APP_START</div>
         }
