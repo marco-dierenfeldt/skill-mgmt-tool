@@ -1,10 +1,11 @@
 const AppStateEnum = {
     APP_START: 1,
     EMPLOYEE_OVERVIEW: 2,
-    SKILL_OVERVIEW: 3,
-    EMPLOYEE_EDIT: 4,
-    SKILL_EDIT: 5,
-    SKILL_NEW: 6
+    EMPLOYEE_EDIT: 3,
+    EMPLOYEE_NEW:4,
+    SKILL_OVERVIEW: 5,
+    SKILL_EDIT: 6,
+    SKILL_NEW: 7
 }
 
 export default AppStateEnum;
