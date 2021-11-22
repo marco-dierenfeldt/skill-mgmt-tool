@@ -4,6 +4,7 @@ import SkillEditComponent from "../skill/skill-edit.component";
 import AppStateEnum from "./app-state.enum";
 import EmployeeOverviewComponent from "../employee/employee-overview.component";
 import EmployeeEditComponent from "../employee/employee-edit.component";
+import SkillAssignmentComponent from "../skillassignment/skill-assignment.component";
 
 class MainComponent extends Component {
     constructor(props) {
@@ -14,23 +15,28 @@ class MainComponent extends Component {
         this.gotoSkillManagement = this.gotoSkillManagement.bind(this);
         this.gotoEmployeeManagement = this.gotoEmployeeManagement.bind(this);
         this.gotoSkillEditor = this.gotoSkillEditor.bind(this);
+        this.gotoSkillAssignment = this.gotoSkillAssignment.bind(this);
         this.gotoEmployeeEditor = this.gotoEmployeeEditor.bind(this);
     }
 
     gotoSkillManagement = () => {
         this.setState({ displayState: AppStateEnum.SKILL_OVERVIEW });
     }
-
-    gotoEmployeeManagement = () => {
-        this.setState({ displayState: AppStateEnum.EMPLOYEE_OVERVIEW });
-    }
-
+    
     gotoSkillEditor = (skillID) => {
         if (skillID) {
             this.setState({ displayState: AppStateEnum.SKILL_EDIT, id: skillID })
         } else {
             this.setState({ displayState: AppStateEnum.SKILL_NEW, id: null });
         }
+    }
+    
+    gotoSkillAssignment = () => {
+        this.setState( {displayState: AppStateEnum.SKILL_ASSIGNMENT});
+    }
+
+    gotoEmployeeManagement = () => {
+        this.setState({ displayState: AppStateEnum.EMPLOYEE_OVERVIEW });
     }
 
     gotoEmployeeEditor = (employeeID) => {
@@ -52,6 +58,8 @@ class MainComponent extends Component {
             content = <SkillEditComponent gotoSkillList={this.gotoSkillManagement} id={this.state.id} />
         } else if (this.state.displayState === AppStateEnum.SKILL_NEW) {
             content = <SkillEditComponent gotoSkillList={this.gotoSkillManagement} />
+        } else if (this.state.displayState === AppStateEnum.SKILL_ASSIGNMENT) {
+            content = <SkillAssignmentComponent/>
         } else if (this.state.displayState === AppStateEnum.EMPLOYEE_EDIT) {
             content = <EmployeeEditComponent gotoEmployeeList={this.gotoEmployeeManagement} id={this.state.id} />
         } else if (this.state.displayState === AppStateEnum.EMPLOYEE_NEW) {
@@ -63,7 +71,8 @@ class MainComponent extends Component {
             <div>
                 <h3>Main App Component</h3>
                 <button onClick={this.gotoSkillManagement}>Skill management</button>&nbsp;
-                <button onClick={this.gotoEmployeeManagement}>Employee management</button>
+                <button onClick={this.gotoEmployeeManagement}>Employee management</button>&nbsp;
+                <button onClick={this.gotoSkillAssignment}>Skill assignment</button>
                 {content}
             </div>
         );

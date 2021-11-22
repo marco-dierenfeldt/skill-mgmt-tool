@@ -16,6 +16,10 @@ class EmployeeListViewComponent extends Component {
         this.updateEmployeeList();
     }
 
+    editEmployee = (id) => {
+        this.props.editEmployee(id);
+    }
+
     updateEmployeeList = () => {
         let tmpEmployeeList = EmployeeService.getEmployeeList();
         this.setState({ employeeList: tmpEmployeeList });
@@ -24,13 +28,13 @@ class EmployeeListViewComponent extends Component {
     render = () => {
         return (
             <div>
-                <h3>Employee List View</h3>
                 <table>
                     <tbody>
                         {this.state.employeeList.map((employee) => {
                             return <tr>
                                 <td>{employee.name} {employee.surname}</td>
                                 <td>{employee.role}</td>
+                                <td><button onClick={() => this.editEmployee(employee.id)}>edit</button></td>
                                 <td><button onClick={() => this.deleteEmployee(employee.id)}>delete</button></td>
                             </tr>
                         })}

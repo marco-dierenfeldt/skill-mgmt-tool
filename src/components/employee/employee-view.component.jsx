@@ -4,7 +4,7 @@ import EmployeeService from "../../service/employee.service"
 class EmployeeViewComponent extends Component {
     constructor(props) {
         super(props);
-        this.state={employee:{id:1, name:"Rurik", surname:"Eisenfaust", unit:"TELCO-Line 9", role:"SW Architect"}};
+        this.state={employee:{id:1, name:"", surname:"", unit:"", role:""}};
     }
 
     componentDidMount = () => {
