@@ -15,7 +15,7 @@ class SkillService {
             { id: 5, name: "Expert", description: "Is known in the community." }
         ];
 
-        this.skillGroups = [
+        this.skillGroupList = [
             {id:1, name:"Testmanagement"},
             {id:2, name:"Agile methods"},
             {id:3, name:"Programming Languages"},
@@ -28,8 +28,12 @@ class SkillService {
         return this.skillList;
     }
 
-    getSkillGroups() {
-        return this.skillGroups;
+    getSkillGroupList() {
+        return this.skillGroupList;
+    }
+
+    getSkillLevelList(){
+        return this.skillLevelList
     }
 
     getSkill(id) {
