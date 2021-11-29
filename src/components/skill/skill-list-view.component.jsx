@@ -14,10 +14,8 @@ class SkillListViewComponent extends Component {
         this.updateSkillList();
     }
 
-    getGroupname = (groupId) => {
-        let skillGroup = this.state.skillGroupList.find((obj) => obj.id === groupId);
-
-        return skillGroup.name;
+    getGroupName = (groupId) => {
+        return SkillService.getGroupName(groupId);
     }
 
     deleteSkill = (id) => {
@@ -46,7 +44,7 @@ class SkillListViewComponent extends Component {
                     {this.state.skillList.map((skill) => {
                         return <tr key={skill.id+342}>
                             <td>{skill.name}</td>
-                            <td>{this.getGroupname(skill.skillGroupId)}</td>
+                            <td>{this.getGroupName(skill.skillGroupId)}</td>
                             <td>{skill.description}</td>
                             <td><button onClick={() => this.deleteSkill(skill.id)}>delete</button></td>
                             <td><button onClick={() => this.props.editSkill(skill.id)}>edit</button></td>

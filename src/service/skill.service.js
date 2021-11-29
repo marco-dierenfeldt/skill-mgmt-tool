@@ -32,6 +32,12 @@ class SkillService {
         return this.skillGroupList;
     }
 
+    getGroupName(skillGroupId) {
+        let skillGroup = this.skillGroupList.find((obj) => obj.id === skillGroupId);
+
+        return skillGroup.name;
+    }
+
     getSkillLevelList(){
         return this.skillLevelList
     }
@@ -43,17 +49,19 @@ class SkillService {
         return result;
     }
 
-    updateSkill(id, name, description) {
+    updateSkill(id, name, skillGroupId, description) {
         var objIndex = this.skillList.findIndex((obj => obj.id === id));
 
         this.skillList[objIndex].name = name;
+        this.skillList[objIndex].skillGroupId = skillGroupId;
         this.skillList[objIndex].description = description;
     }
 
-    addSkill(name, description) {
+    addSkill(name, skillGroupId, description) {
         this.skillList.push({
             id: this.skillList.length + 1,
             name,
+            skillGroupId,
             description,
         });
     }
