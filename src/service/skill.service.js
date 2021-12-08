@@ -70,6 +70,18 @@ class SkillService {
         var objIndex = this.skillList.findIndex((obj => obj.id === id));
         this.skillList.splice(objIndex,1)
     }
+
+    getSkillsByGroupId(groupId) {
+        if (groupId === -1) {
+            return this.skillList;
+        }
+        
+        var skills = this.skillList.filter((skill) => {
+            return skill.skillGroupId === groupId;
+        });
+
+        return skills;
+    }
 };
 
 export default new SkillService();

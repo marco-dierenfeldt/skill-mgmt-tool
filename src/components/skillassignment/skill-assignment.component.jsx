@@ -6,14 +6,14 @@ class SkillAssignmentComponent extends Component {
     constructor() {
         super();
 
-        this.state = { employee: {}, assignedSkills: [], employees: [], skills: [] };
+        this.state = { employee: {}, assignedSkills: [], employees: [], skills: [], skillGroups: [] };
     }
 
     componentDidMount() {
         let employees = EmployeeService.getEmployeeList();
         let skills = SkillService.getSkillList();
-
-        this.setState({ employees, skills });
+        let skillGroups = SkillService.getSkillGroupList();
+        this.setState({ employees, skills, skillGroups });
     }
 
     selectSkill = (skill) => {
@@ -21,27 +21,33 @@ class SkillAssignmentComponent extends Component {
 
         let skills = this.state.assignedSkills;
         skills.push(skill);
-        this.setState({assignedSkills: skills});
+        this.setState({ assignedSkills: skills });
+    }
+
+    selectGroup = (group) => {
+        console.log("selectGroup " + group.name);
+        let skills = SkillService.getSkillsByGroupId(group.id);
+        this.setState({skills, currentGroup: group });
     }
 
     selectEmployee = (employee) => {
         console.log("selectEmployee " + employee.name);
 
-        this.setState({employee});
+        this.setState({ employee });
     }
 
     render() {
         let assignement;
-        if(this.state.employee.name){
+        if (this.state.employee.name) {
             assignement = <div>
                 <h4>Assignment</h4>
                 {this.state.employee.name} {this.state.employee.surname}
                 <ul>
-                    {this.state.assignedSkills.map((skill) =>{
+                    {this.state.assignedSkills.map((skill) => {
                         return <li>{skill.name}</li>
                     })}
                 </ul>
-                </div>
+            </div>
         }
         return (
             <div>
@@ -64,6 +70,13 @@ class SkillAssignmentComponent extends Component {
                                 <h4>Select Skills</h4>
                                 <label>Filter: </label><br />
                                 <input type="text"></input><br />
+                                <select>
+                                    <option>please select</option>
+                                    {this.state.skillGroups.map((group) => {
+                                        return <option key={group.id} onClick={() => this.selectGroup(group)}>{group.name}</option>
+                                    })}
+                                    <option onClick={() => this.selectGroup({id:-1, name:"all groups"})}>select all</option>
+                                </select>
                                 <select>
                                     <option>please select</option>
                                     {this.state.skills.map((skill) => {
