@@ -6,14 +6,15 @@ class SkillAssignmentComponent extends Component {
     constructor() {
         super();
 
-        this.state = { employee: {}, assignedSkills: [], employees: [], skills: [], skillGroups: [] };
+        this.state = { employee: {}, assignedSkills: [], employees: [], skills: [], skillGroups: [], skillLevels:[] };
     }
 
     componentDidMount() {
         let employees = EmployeeService.getEmployeeList();
         let skills = SkillService.getSkillList();
+        let skillLevels = SkillService.getSkillLevelList();
         let skillGroups = SkillService.getSkillGroupList();
-        this.setState({ employees, skills, skillGroups });
+        this.setState({ employees, skills, skillGroups, skillLevels });
     }
 
     selectSkill = (skill) => {
@@ -28,6 +29,18 @@ class SkillAssignmentComponent extends Component {
         console.log("selectGroup " + group.name);
         let skills = SkillService.getSkillsByGroupId(group.id);
         this.setState({skills, currentGroup: group });
+    }
+
+    getSkillGroupNameBySkill(skill) {
+        let tmpGroup = this.state.skillGroups.find((group) => {
+            return group.id === skill.skillGroupId;
+        })
+
+        if (tmpGroup && tmpGroup.name ){
+            return tmpGroup.name
+        } else {
+            return "";
+        }
     }
 
     selectEmployee = (employee) => {
