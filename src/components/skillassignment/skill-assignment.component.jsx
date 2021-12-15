@@ -6,7 +6,7 @@ class SkillAssignmentComponent extends Component {
     constructor() {
         super();
 
-        this.state = { employee: {}, assignedSkills: [], employees: [], skills: [], skillGroups: [], skillLevels:[] };
+        this.state = { employee: {}, assignedSkills: [], employees: [], skills: [], skillGroups: [], skillLevels: [] };
     }
 
     componentDidMount() {
@@ -28,7 +28,7 @@ class SkillAssignmentComponent extends Component {
     selectGroup = (group) => {
         console.log("selectGroup " + group.name);
         let skills = SkillService.getSkillsByGroupId(group.id);
-        this.setState({skills, currentGroup: group });
+        this.setState({ skills, currentGroup: group });
     }
 
     getSkillGroupNameBySkill(skill) {
@@ -36,7 +36,7 @@ class SkillAssignmentComponent extends Component {
             return group.id === skill.skillGroupId;
         })
 
-        if (tmpGroup && tmpGroup.name ){
+        if (tmpGroup && tmpGroup.name) {
             return tmpGroup.name
         } else {
             return "";
@@ -49,6 +49,17 @@ class SkillAssignmentComponent extends Component {
         this.setState({ employee });
     }
 
+    selectSkillLevel(skill, skillLevel) {
+        console.log("skill, skillLevel: " + skill.name + " " + skillLevel.name)
+        
+        let currentSkills = this.state.assignedSkills;
+        let skillIdx = currentSkills.findIndex((tmpSkill) => tmpSkill.id === skill.id)
+        
+        currentSkills[skillIdx].skillLevel = skillLevel;
+
+        this.setState({assignedSkills: currentSkills});
+    }
+
     render() {
         let assignement;
         if (this.state.employee.name) {
@@ -57,7 +68,15 @@ class SkillAssignmentComponent extends Component {
                 {this.state.employee.name} {this.state.employee.surname}
                 <ul>
                     {this.state.assignedSkills.map((skill) => {
-                        return <li>{skill.name}</li>
+                        return <li>
+                            {this.getSkillGroupNameBySkill(skill)} - {skill.name} &nbsp;
+                            <select>
+                                <option>please select</option>
+                                {this.state.skillLevels.map((skillLevel) => {
+                                    return <option key={skillLevel.id} onClick={() => this.selectSkillLevel(skill, skillLevel)}>{skillLevel.name} {skillLevel.surname}</option>
+                                })}
+                            </select>
+                        </li>
                     })}
                 </ul>
             </div>
@@ -88,7 +107,7 @@ class SkillAssignmentComponent extends Component {
                                     {this.state.skillGroups.map((group) => {
                                         return <option key={group.id} onClick={() => this.selectGroup(group)}>{group.name}</option>
                                     })}
-                                    <option onClick={() => this.selectGroup({id:-1, name:"all groups"})}>select all</option>
+                                    <option onClick={() => this.selectGroup({ id: -1, name: "all groups" })}>select all</option>
                                 </select>
                                 <select>
                                     <option>please select</option>

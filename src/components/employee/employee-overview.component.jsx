@@ -2,10 +2,7 @@ import { Component } from "react";
 import EmployeeListViewComponent from "./employee-list-view.component";
 
 class EmployeeOverviewComponent extends Component {
-    constructor(props) {
-        super(props);
-    }
-
+    
     render = () => {
         return (
             <div>
