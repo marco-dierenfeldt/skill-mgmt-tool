@@ -5,6 +5,7 @@ import AppStateEnum from "./app-state.enum";
 import EmployeeOverviewComponent from "../employee/employee-overview.component";
 import EmployeeEditComponent from "../employee/employee-edit.component";
 import SkillAssignmentComponent from "../skillassignment/skill-assignment.component";
+import SkillAssignmentListViewComponent from "../skillassignment/skill-assignment-list-view.component";
 
 class MainComponent extends Component {
     constructor(props) {
@@ -35,6 +36,10 @@ class MainComponent extends Component {
         this.setState( {displayState: AppStateEnum.SKILL_ASSIGNMENT});
     }
 
+    gotoSkillAssignmentList = () => {
+        this.setState( {displayState: AppStateEnum.SKILL_ASSIGNMENT_LIST});
+    }
+
     gotoEmployeeManagement = () => {
         this.setState({ displayState: AppStateEnum.EMPLOYEE_OVERVIEW });
     }
@@ -59,7 +64,9 @@ class MainComponent extends Component {
         } else if (this.state.displayState === AppStateEnum.SKILL_NEW) {
             content = <SkillEditComponent gotoSkillList={this.gotoSkillManagement} />
         } else if (this.state.displayState === AppStateEnum.SKILL_ASSIGNMENT) {
-            content = <SkillAssignmentComponent/>
+            content = <SkillAssignmentComponent gotoSkillAssignmentList={this.gotoSkillAssignmentList}/>
+        } else if (this.state.displayState === AppStateEnum.SKILL_ASSIGNMENT_LIST) {
+            content = <SkillAssignmentListViewComponent/>
         } else if (this.state.displayState === AppStateEnum.EMPLOYEE_EDIT) {
             content = <EmployeeEditComponent gotoEmployeeList={this.gotoEmployeeManagement} id={this.state.id} />
         } else if (this.state.displayState === AppStateEnum.EMPLOYEE_NEW) {
