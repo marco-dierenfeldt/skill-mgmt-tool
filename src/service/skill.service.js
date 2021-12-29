@@ -8,11 +8,11 @@ class SkillService {
         ];
 
         this.skillLevelList = [
-            { id: 1, name: "No Experience", description: "Never even heard about it." },
-            { id: 2, name: "Beginner", description: "Only theoretical knowledge." },
-            { id: 3, name: "Confirmed", description: "Experience in projects." },
-            { id: 4, name: "Advanced", description: "Can coach others." },
-            { id: 5, name: "Expert", description: "Is known in the community." }
+            { id: 0, name: "No Experience", description: "Never even heard about it." },
+            { id: 1, name: "Beginner", description: "Only theoretical knowledge." },
+            { id: 2, name: "Confirmed", description: "Experience in projects." },
+            { id: 3, name: "Advanced", description: "Can coach others." },
+            { id: 4, name: "Expert", description: "Is known in the community." }
         ];
 
         this.skillGroupList = [
