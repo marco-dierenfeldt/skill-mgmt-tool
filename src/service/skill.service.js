@@ -49,6 +49,12 @@ class SkillService {
         return result;
     }
 
+    getName(id) {
+        const skill = this.getSkill(id);
+
+        return skill.name;
+    }
+
     updateSkill(id, name, skillGroupId, description) {
         var objIndex = this.skillList.findIndex((obj => obj.id === id));
 

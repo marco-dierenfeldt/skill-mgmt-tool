@@ -18,6 +18,11 @@ class EmployeeService {
         return result;
     }
 
+    getName(id) {
+        let employee = this.getEmployee(id);
+        return employee.name + ' ' + employee.surname;
+    }
+
     updateSEmployee(id, name, surname, unit, role) {
         var objIndex = this.employeeList.findIndex((employee => employee.id === id));
 

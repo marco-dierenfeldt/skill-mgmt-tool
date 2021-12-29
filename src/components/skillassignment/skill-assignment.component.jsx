@@ -37,10 +37,15 @@ class SkillAssignmentComponent extends Component {
     saveAssignment = () => {
         let employee = this.state.employee;
         let assignedSkills = this.state.assignedSkills;
+        let simplifiedSkills =[];
+
+        assignedSkills.forEach((skill) => {
+            simplifiedSkills.push({skillId:skill.id, skillLevel:skill.skillLevel.id});
+        })
 
         let assignment = {
-            employee,
-            assignedSkills
+            employeeId:employee.id,
+            simplifiedSkills
         };
 
         SkillAssignmentService.addAssignment(assignment);
