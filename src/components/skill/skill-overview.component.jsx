@@ -15,8 +15,8 @@ class SkillOverviewComponent extends Component {
 
     render = () => {
         return (
-            <div><h3>Skill Overview</h3>
-                <button onClick={this.state.gotoSkillEdit}>Add Skill </button>
+            <div><h3 className="title is-3">Skill Overview</h3>
+                <button className="button is-primary" onClick={this.state.gotoSkillEdit}>Add Skill</button>
                 <SkillListViewComponent editSkill={this.editSkill} />
             </div>
         );

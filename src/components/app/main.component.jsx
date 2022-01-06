@@ -23,7 +23,7 @@ class MainComponent extends Component {
     gotoSkillManagement = () => {
         this.setState({ displayState: AppStateEnum.SKILL_OVERVIEW });
     }
-    
+
     gotoSkillEditor = (skillID) => {
         if (skillID) {
             this.setState({ displayState: AppStateEnum.SKILL_EDIT, id: skillID })
@@ -31,13 +31,13 @@ class MainComponent extends Component {
             this.setState({ displayState: AppStateEnum.SKILL_NEW, id: null });
         }
     }
-    
+
     gotoSkillAssignment = () => {
-        this.setState( {displayState: AppStateEnum.SKILL_ASSIGNMENT});
+        this.setState({ displayState: AppStateEnum.SKILL_ASSIGNMENT });
     }
 
     gotoSkillAssignmentList = () => {
-        this.setState( {displayState: AppStateEnum.SKILL_ASSIGNMENT_LIST});
+        this.setState({ displayState: AppStateEnum.SKILL_ASSIGNMENT_LIST });
     }
 
     gotoEmployeeManagement = () => {
@@ -64,23 +64,44 @@ class MainComponent extends Component {
         } else if (this.state.displayState === AppStateEnum.SKILL_NEW) {
             content = <SkillEditComponent gotoSkillList={this.gotoSkillManagement} />
         } else if (this.state.displayState === AppStateEnum.SKILL_ASSIGNMENT) {
-            content = <SkillAssignmentComponent gotoSkillAssignmentList={this.gotoSkillAssignmentList}/>
+            content = <SkillAssignmentComponent gotoSkillAssignmentList={this.gotoSkillAssignmentList} />
         } else if (this.state.displayState === AppStateEnum.SKILL_ASSIGNMENT_LIST) {
-            content = <SkillAssignmentListViewComponent/>
+            content = <SkillAssignmentListViewComponent />
         } else if (this.state.displayState === AppStateEnum.EMPLOYEE_EDIT) {
             content = <EmployeeEditComponent gotoEmployeeList={this.gotoEmployeeManagement} id={this.state.id} />
         } else if (this.state.displayState === AppStateEnum.EMPLOYEE_NEW) {
             content = <EmployeeEditComponent gotoEmployeeList={this.gotoEmployeeManagement} />
         } else {
-            content = <div>APP_START</div>
+            content = <div></div>
         }
         return (
             <div>
-                <h3>Main App Component</h3>
-                <button onClick={this.gotoSkillManagement}>Skill management</button>&nbsp;
-                <button onClick={this.gotoEmployeeManagement}>Employee management</button>&nbsp;
-                <button onClick={this.gotoSkillAssignment}>Skill assignment</button>
-                {content}
+                <section className="hero is-link">
+                    <div className="hero-body">
+                        <div class="container">
+                            <h1 className="title">
+                                Skills App
+                            </h1>
+                            <h2 className="subtitle">
+                                ...manage skills of employees
+                            </h2>
+                        </div>
+                    </div>
+                </section>
+                <nav className="navbar" role="navigation" aria-label="main navigation">
+
+                    <div className="navbar-menu is-active">
+                        <div className="navbar-start">
+                            <a className="navbar-item" onClick={this.gotoSkillManagement}>Skills</a>&nbsp;
+                            <a className="navbar-item" onClick={this.gotoEmployeeManagement}>Employees</a>&nbsp;
+                            <a className="navbar-item" onClick={this.gotoSkillAssignment}>Skill assignment</a>
+                        </div>
+                    </div>
+                </nav>
+                <hr />
+                <div className="container is-fluid">
+                    {content}
+                </div>
             </div>
         );
     }
