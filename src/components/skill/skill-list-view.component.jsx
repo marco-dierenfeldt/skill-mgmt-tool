@@ -31,12 +31,13 @@ class SkillListViewComponent extends Component {
     render = () => {
         return (
             <div>
-                <table>
+                <table className="table is-hoverable">
                     <thead>
                         <tr>
                             <th>Name</th>
                             <th>Group</th>
                             <th>Description</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,19 +46,19 @@ class SkillListViewComponent extends Component {
                                 <td>{skill.name}</td>
                                 <td>{this.getGroupName(skill.skillGroupId)}</td>
                                 <td>{skill.description}</td>
-                                <td>
+                                <td><div className="buttons has-addons">         
                                     <button className="button is-small" onClick={() => this.props.editSkill(skill.id)} alt="edit">
                                         <span class="icon is-small">
                                             <i class="fas fa-pencil-alt"></i>
                                         </span>
                                     </button>
-                                </td>
-                                <td>
+
                                     <button className="button is-danger is-small" onClick={() => this.deleteSkill(skill.id)} alt="delete">
                                         <span class="icon is-small">
                                             <i class="fas fa-trash-alt"></i>
                                         </span>
                                     </button>
+                                </div>
                                 </td>
                             </tr>
                         })}

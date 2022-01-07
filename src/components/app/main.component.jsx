@@ -92,9 +92,9 @@ class MainComponent extends Component {
 
                     <div className="navbar-menu is-active">
                         <div className="navbar-start">
-                            <a className="navbar-item" onClick={this.gotoSkillManagement}>Skills</a>&nbsp;
-                            <a className="navbar-item" onClick={this.gotoEmployeeManagement}>Employees</a>&nbsp;
-                            <a className="navbar-item" onClick={this.gotoSkillAssignment}>Skill assignment</a>
+                            <a href="#" className="navbar-item" onClick={this.gotoSkillManagement}>Skills</a>&nbsp;
+                            <a href="#" className="navbar-item" onClick={this.gotoEmployeeManagement}>Employees</a>&nbsp;
+                            <a href="#" className="navbar-item" onClick={this.gotoSkillAssignment}>Skill assignment</a>
                         </div>
                     </div>
                 </nav>
