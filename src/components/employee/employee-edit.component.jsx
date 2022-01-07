@@ -9,19 +9,27 @@ class EmployeeEditComponent extends Component {
         this.state = { 
             gotoSkillList: props.gotoEmployeeList,
             id: props.id,
-            name: "Rurik", 
-            surname: "Eisenfaust", 
-            unit: "TELCO-Line 9", 
-            role: "SW Architect" };
+            name: "", 
+            surname: "", 
+            unit: "", 
+            role: "" };
     }
 
     componentDidMount = () => {
         if (this.props.id && typeof(this.props.id) == 'number') {
             this.editMode = true;
             let tmpEmployee = EmployeeService.getEmployee(parseInt(this.props.id));
-            this.setState({id: tmpEmployee.id, name: tmpEmployee.name, surname: tmpEmployee.surname, unit: tmpEmployee.unit, role: tmpEmployee.role});
+            this.setState({
+                id: tmpEmployee.id, 
+                name: tmpEmployee.name, 
+                surname: tmpEmployee.surname, 
+                unit: tmpEmployee.unit, 
+                role: tmpEmployee.role,
+                title: 'Edit existing employee'
+            });
         } else {
             this.editMode = false;
+            this.setState({title: 'Add new employee'});
         }
     }
 
@@ -62,7 +70,7 @@ class EmployeeEditComponent extends Component {
     render = () => {
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3>Employee Edit View</h3>
+                <h3>{this.state.title}</h3>
                 <table>
                     <tr>
                         <td>Vorname</td>
