@@ -28,11 +28,12 @@ class SkillEditComponent extends Component {
                 name: tmpSkill.name,
                 skillGroupId: tmpSkill.skillGroupId,
                 description: tmpSkill.description,
-                skillGroups: tmpSkillGroups
+                skillGroups: tmpSkillGroups,
+                title: 'Edit existing skill'
             });
         } else {
             this.editmode = false;
-            this.setState({id: -1, skillGroups: tmpSkillGroups})
+            this.setState({ id: -1, skillGroups: tmpSkillGroups, title: 'Add new skill' })
         }
     }
 
@@ -69,51 +70,50 @@ class SkillEditComponent extends Component {
     render = () => {
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3>Skill Edit View</h3>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>SkillGroup</td>
-                            <td>
-                                <select>
-                                    <option>please select</option>
-                                    {this.state.skillGroups.map((skillGroup) => {
-                                        if (skillGroup.id === this.state.skillGroupId) {
-                                            return <option selected="true" key={skillGroup.id} onClick={() => this.selectSkillGroup(skillGroup.id)}>{skillGroup.name}</option>
-                                        } else {
-                                            return <option key={skillGroup.id} onClick={() => this.selectSkillGroup(skillGroup.id)}>{skillGroup.name}</option>
-                                        }
-                                    })}
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Skillname</td>
-                            <td>
-                                <input
-                                    name="name"
-                                    type="text"
-                                    value={this.state.name}
-                                    onChange={e => this.setName(e.target.value)}
-                                    required />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Beschreibung</td>
-                            <td>
-                                <textarea
-                                    name="description"
-                                    type="text"
-                                    value={this.state.description}
-                                    onChange={e => this.setDescription(e.target.value)}
-                                    required />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td><td align="right"><button>{this.btnTxt()}</button></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h3 className="title is-3">{this.state.title}</h3>
+
+                <div className="field">
+                    <label className="label" >SkillGroup</label>
+                    <div className="select">
+                        <select>
+                            <option>please select</option>
+                            {this.state.skillGroups.map((skillGroup) => {
+                                if (skillGroup.id === this.state.skillGroupId) {
+                                    return <option selected="true" key={skillGroup.id} onClick={() => this.selectSkillGroup(skillGroup.id)}>{skillGroup.name}</option>
+                                } else {
+                                    return <option key={skillGroup.id} onClick={() => this.selectSkillGroup(skillGroup.id)}>{skillGroup.name}</option>
+                                }
+                            })}
+                        </select>
+                    </div>
+                </div>
+                <div className="field">
+                    <label className="label">Skillname</label>
+                    <div className="control">
+                        <input
+                            name="name"
+                            className="input"
+                            type="text"
+                            value={this.state.name}
+                            onChange={e => this.setName(e.target.value)}
+                            required />
+                    </div>
+                </div>
+                <div className="field">
+                    <label className="label">Beschreibung</label>
+                    <div className="control">
+                        <textarea
+                            name="description"
+                            className="textarea"
+                            type="text"
+                            value={this.state.description}
+                            onChange={e => this.setDescription(e.target.value)}
+                            required />
+                    </div>
+                </div>
+                <button className="button is-primary">{this.btnTxt()}</button>
+
+
             </form>
         );
 
