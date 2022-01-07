@@ -28,14 +28,32 @@ class EmployeeListViewComponent extends Component {
     render = () => {
         return (
             <div>
-                <table>
+                <table className="table is-hoverable">
+                    <thead>
+                        <th>name</th>
+                        <th>role</th>
+                        <th></th>
+                    </thead>
                     <tbody>
                         {this.state.employeeList.map((employee) => {
                             return <tr>
                                 <td>{employee.name} {employee.surname}</td>
                                 <td>{employee.role}</td>
-                                <td><button onClick={() => this.editEmployee(employee.id)}>edit</button></td>
-                                <td><button onClick={() => this.deleteEmployee(employee.id)}>delete</button></td>
+                                <td>
+                                <div className="buttons has-addons"> 
+                                    <button className="button is-small" onClick={() => this.editEmployee(employee.id)}>
+                                    <span class="icon is-small">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </span>
+                                    </button>
+                                    <button className="button is-small is-danger"onClick={() => this.deleteEmployee(employee.id)}>
+                                    <span class="icon is-small">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </span>
+                                    </button>
+                                    </div>
+                                </td>
+
                             </tr>
                         })}
                     </tbody>
