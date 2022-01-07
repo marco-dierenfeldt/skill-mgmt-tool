@@ -72,7 +72,8 @@ class EmployeeEditComponent extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <h3 className="title is-3" >{this.state.title}</h3>
-                <div className="field">
+                <div className="columns">
+                    <div className="field column is-4">
                     <label className="label">Name</label>
                     <div className="control">
                         <input
@@ -83,7 +84,10 @@ class EmployeeEditComponent extends Component {
                             onChange={e => this.setName(e.target.value)}
                             required />
                     </div>
-                </div><div className="field">
+                </div>
+                </div>
+                <div className="columns">
+                    <div className="field column is-4">
                     <label className="label">Surname</label>
                     <div className="control">
                         <input
@@ -95,7 +99,9 @@ class EmployeeEditComponent extends Component {
                             required />
                     </div>
                 </div>
-                <div className="field">
+                </div>
+                <div className="columns">
+                    <div className="field column is-4">
                     <label className="label">Unit</label>
                     <div className="control">
                         <input
@@ -108,7 +114,9 @@ class EmployeeEditComponent extends Component {
                         </input>
                     </div>
                 </div>
-                <div className="field">
+                </div>
+                <div className="columns">
+                    <div className="field column is-4">
                     <label className="label">Role</label>
                     <div className="control">
                         <input
@@ -120,6 +128,7 @@ class EmployeeEditComponent extends Component {
                             required>
                         </input>
                     </div>
+                </div>
                 </div>
                 <button className="button is-primary" >{this.btnTxt()}</button>
             </form >
