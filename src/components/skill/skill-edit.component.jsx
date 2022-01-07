@@ -17,11 +17,11 @@ class SkillEditComponent extends Component {
     }
 
     componentDidMount = () => {
+        let tmpSkillGroups = SkillService.getSkillGroupList();
         if (this.props.id && typeof (this.props.id) == 'number') {
-            //console.log("SkillEditComponent.componentDidMount("+this.props.id+")");
+            //console.log("SkillEditComponent.componentDidMount(" + this.props.id + ")");
             this.editMode = true;
             let tmpSkill = SkillService.getSkill(parseInt(this.props.id));
-            let tmpSkillGroups = SkillService.getSkillGroupList();
             //console.log("SkillEditComponent.componentDidMount tmpSkill:" + tmpSkill)
             this.setState({
                 id: tmpSkill.id,
@@ -32,6 +32,7 @@ class SkillEditComponent extends Component {
             });
         } else {
             this.editmode = false;
+            this.setState({id: -1, skillGroups: tmpSkillGroups})
         }
     }
 
@@ -44,7 +45,7 @@ class SkillEditComponent extends Component {
     }
 
     selectSkillGroup(skillGroupId) {
-        this.setState({skillGroupId})
+        this.setState({ skillGroupId })
     }
 
     handleSubmit = (event) => {
@@ -70,46 +71,48 @@ class SkillEditComponent extends Component {
             <form onSubmit={this.handleSubmit}>
                 <h3>Skill Edit View</h3>
                 <table>
-                    <tr>
-                        <td>SkillGroup</td>
-                        <td>
-                            <select>
-                                <option>please select</option>
-                                {this.state.skillGroups.map((skillGroup) => {
-                                    if (skillGroup.id === this.state.skillGroupId) {
-                                        return <option selected="true" key={skillGroup.id} onClick={() => this.selectSkillGroup(skillGroup.id)}>{skillGroup.name}</option>
-                                    } else {
-                                        return <option key={skillGroup.id} onClick={() => this.selectSkillGroup(skillGroup.id)}>{skillGroup.name}</option>
-                                    }
-                                })}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Skillname</td>
-                        <td>
-                            <input
-                                name="name"
-                                type="text"
-                                value={this.state.name}
-                                onChange={e => this.setName(e.target.value)}
-                                required />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Beschreibung</td>
-                        <td>
-                            <textarea
-                                name="description"
-                                type="text"
-                                value={this.state.description}
-                                onChange={e => this.setDescription(e.target.value)}
-                                required />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td></td><td align="right"><button>{this.btnTxt()}</button></td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>SkillGroup</td>
+                            <td>
+                                <select>
+                                    <option>please select</option>
+                                    {this.state.skillGroups.map((skillGroup) => {
+                                        if (skillGroup.id === this.state.skillGroupId) {
+                                            return <option selected="true" key={skillGroup.id} onClick={() => this.selectSkillGroup(skillGroup.id)}>{skillGroup.name}</option>
+                                        } else {
+                                            return <option key={skillGroup.id} onClick={() => this.selectSkillGroup(skillGroup.id)}>{skillGroup.name}</option>
+                                        }
+                                    })}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Skillname</td>
+                            <td>
+                                <input
+                                    name="name"
+                                    type="text"
+                                    value={this.state.name}
+                                    onChange={e => this.setName(e.target.value)}
+                                    required />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Beschreibung</td>
+                            <td>
+                                <textarea
+                                    name="description"
+                                    type="text"
+                                    value={this.state.description}
+                                    onChange={e => this.setDescription(e.target.value)}
+                                    required />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td><td align="right"><button>{this.btnTxt()}</button></td>
+                        </tr>
+                    </tbody>
                 </table>
             </form>
         );
