@@ -116,12 +116,14 @@ class SkillEditComponent extends Component {
                         </div>
                     </div>
                 </div>
-                <button className="button is-primary">{this.btnTxt()}</button>
-
-
+                <button className="button is-primary">
+                    <span class="icon is-small">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span>{this.btnTxt()}</span>
+                </button>
             </form>
         );
-
     }
 }
 

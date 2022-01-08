@@ -7,7 +7,7 @@ class SkillAssignmentListViewComponent extends Component {
     constructor() {
         super();
 
-        this.state = { assignments: [], enrichedAssignments: [], skills:[], skillGroups: [] };
+        this.state = { assignments: [], enrichedAssignments: [], skills: [], skillGroups: [] };
     }
 
     componentDidMount() {
@@ -29,21 +29,29 @@ class SkillAssignmentListViewComponent extends Component {
 
     render() {
         return (<div>
-            <h3>SKillAssignmentListViewComponent</h3>
-            <table>
+            <h3 className="title is-3">Skill Assignment List</h3>
+            <button className="button is-primary" onClick={() => this.props.gotoEditAssignment(-1)}>
+                <span class="icon is-small">
+                    <i class="fas fa-plus-circle"></i>
+                </span>
+                <span>New Assignment</span>
+            </button>
+            <table className="table is-hoverable">
                 <thead>
-                    <th>Name filter:<br/><input type="text" id="nameFilter"></input></th>
                     <th>
-                        SkillFilter:<br/>
-                        <select>
-                            <option>select filter</option>
+                        <label className="label">Name filter:</label><input className="input" type="text" id="nameFilter"></input></th>
+                    <th>
+                        <label className="label">SkillFilter:</label>
+                        <select className="select">
+                            <option>select Group</option>
                             {this.state.skillGroups.map((group) => {
                                 return <option key={group.id}>{group.name}</option>
                             })}
                             <option>select all</option>
                         </select>
-                        <select>
-                            <option>select filter</option>
+                        &nbsp;
+                        <select className="select">
+                            <option>all</option>
                             {this.state.skills.map((skill) => {
                                 return <option key={skill.id} >{skill.name}</option>
                             })}
@@ -56,9 +64,22 @@ class SkillAssignmentListViewComponent extends Component {
                         return <tr>
                             <td>{assignment.name}:</td>
                             <td>{assignment.skills.map((skill) => skill.skillName + '(' + skill.skillLevel + ') ')}</td>
-                            <td><button>edit</button> &nbsp; <button onClick={() => this.deleteAssignment(assignment.id)}>delete</button></td>
-                        </tr>
+                            <td>
+                                <div className="buttons has-addons">
+                                    <button className="button is-small" onClick={() => this.props.gotoEditAssignment(assignment.id)} alt="edit">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </span>
+                                    </button>
 
+                                    <button className="button is-danger is-small" onClick={() => this.deleteAssignment(assignment.id)} alt="delete">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
                     })}
                 </tbody>
             </table>

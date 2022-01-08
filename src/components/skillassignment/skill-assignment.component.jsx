@@ -7,7 +7,7 @@ class SkillAssignmentComponent extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { employee: {}, assignedSkills: [], employees: [], skills: [], skillGroups: [], skillLevels: [] };
+        this.state = { employee: {}, assignedSkills: [], employees: [], skills: [], skillGroups: [], skillLevels: [], saveDisabled: true };
     }
 
     componentDidMount() {
@@ -70,6 +70,9 @@ class SkillAssignmentComponent extends Component {
     }
 
     selectSkill = (skill) => {
+        if (this.state.employee.name) {
+            this.setState({ saveDisabled: false });
+        }
         console.log("selectSkill " + skill.name);
 
         let skills = this.state.assignedSkills;
@@ -122,7 +125,6 @@ class SkillAssignmentComponent extends Component {
                         })}
                     </tbody>
                 </table>
-                <button className="button is-primary" onClick={this.saveAssignment}>save</button>
             </div>
         }
         return (
@@ -165,6 +167,18 @@ class SkillAssignmentComponent extends Component {
                 </div>
 
                 {assignement}
+                <button disabled={this.state.saveDisabled} className="button is-primary" onClick={this.saveAssignment}>
+                    <span class="icon is-small">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span>Save</span>
+                </button>
+                <button className="button" onClick={this.props.gotoSkillAssignmentList}>
+                    <span>Cancel</span>
+                    <span class="icon is-small">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </button>
             </div>
         );
     }

@@ -45,11 +45,18 @@ class MainComponent extends Component {
     }
 
     gotoEmployeeEditor = (employeeID) => {
-        console.log("MainComponent.gotoEmployeeEditor()")
         if (employeeID) {
             this.setState({ displayState: AppStateEnum.EMPLOYEE_EDIT, id: employeeID });
         } else {
             this.setState({ displayState: AppStateEnum.EMPLOYEE_NEW });
+        }
+    }
+
+    gotoAssignmentEditor = (assignmentID) => {
+        if (assignmentID) {
+            this.setState({displayState: AppStateEnum.SKILL_ASSIGNMENT, id: assignmentID});
+        } else {
+            this.setState({displayState: AppStateEnum.SKILL_ASSIGNMENT_NEW});
         }
     }
 
@@ -63,10 +70,12 @@ class MainComponent extends Component {
             content = <SkillEditComponent gotoSkillList={this.gotoSkillManagement} id={this.state.id} />
         } else if (this.state.displayState === AppStateEnum.SKILL_NEW) {
             content = <SkillEditComponent gotoSkillList={this.gotoSkillManagement} />
-        } else if (this.state.displayState === AppStateEnum.SKILL_ASSIGNMENT) {
+        } else if (this.state.displayState === AppStateEnum.SKILL_ASSIGNMENT_NEW) {
             content = <SkillAssignmentComponent gotoSkillAssignmentList={this.gotoSkillAssignmentList} />
+        } else if (this.state.displayState === AppStateEnum.SKILL_ASSIGNMENT) {
+            content = <SkillAssignmentComponent gotoSkillAssignmentList={this.gotoSkillAssignmentList} id={this.state.id}/>
         } else if (this.state.displayState === AppStateEnum.SKILL_ASSIGNMENT_LIST) {
-            content = <SkillAssignmentListViewComponent />
+            content = <SkillAssignmentListViewComponent gotoEditAssignment={this.gotoAssignmentEditor}/>
         } else if (this.state.displayState === AppStateEnum.EMPLOYEE_EDIT) {
             content = <EmployeeEditComponent gotoEmployeeList={this.gotoEmployeeManagement} id={this.state.id} />
         } else if (this.state.displayState === AppStateEnum.EMPLOYEE_NEW) {
@@ -94,7 +103,7 @@ class MainComponent extends Component {
                         <div className="navbar-start">
                             <a href="#" className="navbar-item" onClick={this.gotoSkillManagement}>Skills</a>&nbsp;
                             <a href="#" className="navbar-item" onClick={this.gotoEmployeeManagement}>Employees</a>&nbsp;
-                            <a href="#" className="navbar-item" onClick={this.gotoSkillAssignment}>Skill assignment</a>
+                            <a href="#" className="navbar-item" onClick={this.gotoSkillAssignmentList}>Skill assignment List</a>
                         </div>
                     </div>
                 </nav>

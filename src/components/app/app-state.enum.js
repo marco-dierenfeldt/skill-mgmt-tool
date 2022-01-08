@@ -7,7 +7,8 @@ const AppStateEnum = {
     SKILL_EDIT: 6,
     SKILL_NEW: 7,
     SKILL_ASSIGNMENT: 8,
-    SKILL_ASSIGNMENT_LIST: 9
+    SKILL_ASSIGNMENT_LIST: 9,
+    SKILL_ASSIGNMENT_NEW: 10
 }
 
 export default AppStateEnum;
