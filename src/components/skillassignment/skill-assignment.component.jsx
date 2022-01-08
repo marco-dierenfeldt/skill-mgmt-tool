@@ -15,15 +15,8 @@ class SkillAssignmentComponent extends Component {
         let skills = SkillService.getSkillList();
         let skillLevels = SkillService.getSkillLevelList();
         let skillGroups = SkillService.getSkillGroupList();
+        this.DEFAULT_SKILL_LEVEL = skillLevels[0];
         this.setState({ employees, skills, skillGroups, skillLevels });
-    }
-
-    selectSkill = (skill) => {
-        console.log("selectSkill " + skill.name);
-
-        let skills = this.state.assignedSkills;
-        skills.push(skill);
-        this.setState({ assignedSkills: skills });
     }
 
     deleteSkill = (skill) => {
@@ -37,25 +30,19 @@ class SkillAssignmentComponent extends Component {
     saveAssignment = () => {
         let employee = this.state.employee;
         let assignedSkills = this.state.assignedSkills;
-        let simplifiedSkills =[];
+        let simplifiedSkills = [];
 
         assignedSkills.forEach((skill) => {
-            simplifiedSkills.push({skillId:skill.id, skillLevel:skill.skillLevel.id});
+            simplifiedSkills.push({ skillId: skill.id, skillLevel: skill.skillLevel.id });
         })
 
         let assignment = {
-            employeeId:employee.id,
+            employeeId: employee.id,
             simplifiedSkills
         };
 
         SkillAssignmentService.addAssignment(assignment);
         this.props.gotoSkillAssignmentList();
-    }
-
-    selectGroup = (group) => {
-        console.log("selectGroup " + group.name);
-        let skills = SkillService.getSkillsByGroupId(group.id);
-        this.setState({ skills, currentGroup: group });
     }
 
     getSkillGroupNameBySkill(skill) {
@@ -76,6 +63,21 @@ class SkillAssignmentComponent extends Component {
         this.setState({ employee });
     }
 
+    selectGroup = (group) => {
+        console.log("selectGroup " + group.name);
+        let skills = SkillService.getSkillsByGroupId(group.id);
+        this.setState({ skills, currentGroup: group });
+    }
+
+    selectSkill = (skill) => {
+        console.log("selectSkill " + skill.name);
+
+        let skills = this.state.assignedSkills;
+        skills.push(skill);
+        this.setState({ assignedSkills: skills });
+        this.selectSkillLevel(skill, this.DEFAULT_SKILL_LEVEL);
+    }
+
     selectSkillLevel(skill, skillLevel) {
         console.log("skill, skillLevel: " + skill.name + " " + skillLevel.name)
 
@@ -91,59 +93,78 @@ class SkillAssignmentComponent extends Component {
         let assignement;
         if (this.state.employee.name) {
             assignement = <div>
-                <h4>Assignment</h4>
-                {this.state.employee.name} {this.state.employee.surname}
-                <ul>
-                    {this.state.assignedSkills.map((skill) => {
-                        return <li>
-                            {this.getSkillGroupNameBySkill(skill)} - {skill.name} &nbsp;
-                            <select>
-                                <option>please select</option>
-                                {this.state.skillLevels.map((skillLevel) => {
-                                    return <option key={skillLevel.id} onClick={() => this.selectSkillLevel(skill, skillLevel)}>{skillLevel.name} {skillLevel.surname}</option>
-                                })}
-                            </select><button onClick={() => this.deleteSkill(skill)}>delete</button>
-                        </li>
-                    })}
-                </ul>
+                <h4 className="title is-4">Assignments for {this.state.employee.name} {this.state.employee.surname}</h4>
+
+
+                <table className="table is-hoverable">
+
+                    <tbody>
+                        {this.state.assignedSkills.map((skill) => {
+                            return <tr>
+                                <td>
+                                    {this.getSkillGroupNameBySkill(skill)} - {skill.name} &nbsp;
+                                </td>
+                                <td>
+                                    <select className="select">
+                                        {this.state.skillLevels.map((skillLevel) => {
+                                            return <option key={skillLevel.id} onClick={() => this.selectSkillLevel(skill, skillLevel)}>{skillLevel.name} {skillLevel.surname}</option>
+                                        })}
+                                    </select>
+                                </td>
+                                <td>
+                                    <button className="button is-danger is-small" onClick={() => this.deleteSkill(skill)}>
+                                        <span class="icon is-small">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </span>
+                                    </button>
+                                </td>
+                            </tr>
+                        })}
+                    </tbody>
+                </table>
+                <button className="button is-primary" onClick={this.saveAssignment}>save</button>
             </div>
         }
         return (
             <div>
-                <h3>SkillAssignment</h3>
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <h4>Select Employee</h4>
-                                <select>
-                                    <option>please select</option>
-                                    {this.state.employees.map((employee) => {
-                                        return <option key={employee.id} onClick={() => this.selectEmployee(employee)}>{employee.name} {employee.surname}</option>
-                                    })}
-                                </select>
-                            </td>
-                            <td>
-                                <h4>Select Skills</h4>
-                                <select>
-                                    <option>please select</option>
-                                    {this.state.skillGroups.map((group) => {
-                                        return <option key={group.id} onClick={() => this.selectGroup(group)}>{group.name}</option>
-                                    })}
-                                    <option onClick={() => this.selectGroup({ id: -1, name: "all groups" })}>select all</option>
-                                </select>
-                                <select>
-                                    <option>please select</option>
-                                    {this.state.skills.map((skill) => {
-                                        return <option key={skill.id} onClick={() => this.selectSkill(skill)}>{skill.name}</option>
-                                    })}
-                                </select>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h3 className="title is-3">Skill assignment</h3>
+                <div className="columns">
+                    <div className="column is-3">
+                        <div className="field">
+                            <label className="label">Select Employee</label>
+                            <select className="select">
+                                <option>please select</option>
+                                {this.state.employees.map((employee) => {
+                                    return <option key={employee.id} onClick={() => this.selectEmployee(employee)}>{employee.name} {employee.surname}</option>
+                                })}
+                            </select>
+                        </div>
+
+                    </div>
+                    <div className="column is-3">
+                        <div className="field">
+                            <label className="label">Skillgroup</label>
+                            <select className="select">
+                                <option onClick={() => this.selectGroup({ id: -1, name: "all groups" })}>all</option>
+                                {this.state.skillGroups.map((group) => {
+                                    return <option key={group.id} onClick={() => this.selectGroup(group)}>{group.name}</option>
+                                })}
+
+                            </select>
+                        </div>
+                        <div className="field">
+                            <label className="label">Skill</label>
+                            <select className="select">
+                                <option>please select</option>
+                                {this.state.skills.map((skill) => {
+                                    return <option key={skill.id} onClick={() => this.selectSkill(skill)}>{skill.name}</option>
+                                })}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 {assignement}
-                <button onClick={this.saveAssignment}>save</button>
             </div>
         );
     }
